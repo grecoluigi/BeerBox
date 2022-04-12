@@ -11,6 +11,7 @@ class BeerDetailViewController: UIViewController {
     @IBOutlet weak var bottomSheet: UIView!
     var bottomSheetArea: CGRect?
     var beer: Beer!
+    @IBOutlet weak var backgroundView: UIView!
     private var imageLoader = ImageLoader()
     @IBOutlet weak var beerTitleLabel: UILabel!
     @IBOutlet weak var beerTaglineLabel: UILabel!
@@ -19,7 +20,7 @@ class BeerDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bottomSheetArea = bottomSheet.frame
+        bottomSheetArea = bottomSheet.bounds
         beerTitleLabel.text = beer.name
         beerTaglineLabel.text = beer.tagline
         beerDescriptionLabel.text = beer.description
@@ -31,7 +32,34 @@ class BeerDetailViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        animateBackgroundView(isAppearing: true)
+    }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        animateBackgroundView(isAppearing: false)
+//        super.viewWillDisappear(true)
+//
+//    }
+    
+    func animateBackgroundView(isAppearing : Bool){
+        UIView.transition(with: backgroundView, duration: 0.4,
+                          options: .transitionCrossDissolve,
+                          animations: {
+            if isAppearing{
+                self.backgroundView.alpha = 0.5
+            } else {
+                self.backgroundView.alpha = 0
+            }
+               
+        }) { finished in
+            if !isAppearing {
+                self.dismiss(animated: true)
+            }
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -45,12 +73,12 @@ class BeerDetailViewController: UIViewController {
 
     @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
         let p = sender.location(in: self.view)
-        if bottomSheetArea!.contains(p) {
+        if bottomSheet.frame.contains(p) {
             // inside
+            print("I'm inside \(p)")
         } else {
             // outside
-            self.dismiss(animated: true)
+            animateBackgroundView(isAppearing: false)
         }
-        
     }
 }

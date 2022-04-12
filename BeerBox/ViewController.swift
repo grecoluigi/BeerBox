@@ -7,11 +7,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, AlertDisplayer {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var scrollView: UIScrollView!
     private var viewModel: BeerViewModel!
     private var imageLoader = ImageLoader()
+    private var isSearching = false
+    private var lastPressedButton = Int()
+    private let svButtons = ScrollViewButtons.shared.buttonNames
     private lazy var beerDetailVC: BeerDetailViewController = {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         var viewController = storyboard.instantiateViewController(withIdentifier: "BeerDetailViewController") as! BeerDetailViewController
@@ -21,14 +26,72 @@ class ViewController: UIViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
         styleNavBarTitle()
+        addFilterButtons()
         tableView.dataSource = self
         tableView.prefetchDataSource = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 160
+        tableView.keyboardDismissMode = .onDrag
         let request = BeerRequest(parameters: ["page": "1"])
         viewModel = BeerViewModel(request: request, delegate: self)
         viewModel.fetchBeers()
+    }
+    
+    func addFilterButtons() {
+
+       // let scrollView = UIScrollView(frame: CGRect(x: 0,y: 0, width: self.view.frame.width, height: 60))
+        var frame : CGRect?
+        let padding = 5
+        var lastX = 10
+  
+        for i in 0..<svButtons.count {
+            let button = UIButton(type: .roundedRect)
+            let width = (svButtons[i].count * 10) + 10
+            frame = CGRect(x: lastX, y: 10, width: width, height: 30)
+                lastX += (width + padding)
+            button.frame = frame!
+            button.tag = i
+            //button.backgroundColor = UIColor(named: "BeerAccent")
+            button.backgroundColor = .darkText
+            button.tintColor = .gray
+            button.layer.cornerRadius = 15
+            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+            button.addTarget(self, action: #selector(filterButton), for: .touchUpInside)
+            button.setTitle(svButtons[i], for: .normal)
+            scrollView.addSubview(button)
+        }
+        scrollView.contentSize = CGSize( width: CGFloat(lastX) + 20, height: scrollView.frame.size.height)
+
+    }
+
+    @objc func filterButton(sender: UIButton) {
+        if lastPressedButton == sender.tag {
+            viewModel.cancelSearch()
+            sender.backgroundColor = .darkText
+            sender.tintColor = .gray
+            lastPressedButton = Int()
+        } else {
+            viewModel.fetchBeers()
+            viewModel.filterBeers(by: ScrollViewButtons.shared.buttonAssociatedStrings[sender.tag])
+        
+            deselectAllButtons()
+            sender.tintColor = .black
+            sender.backgroundColor = UIColor(named: "BeerAccent")
+            lastPressedButton = sender.tag
+        }
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func deselectAllButtons() {
+        for button in scrollView.subviews {
+            button.backgroundColor = .darkText
+            button.tintColor = .gray
+        }
     }
     
     func styleNavBarTitle() {
@@ -61,22 +124,15 @@ extension ViewController: BeerViewModelDelegate {
       }
     let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
         DispatchQueue.main.async {
-            print("Total count: \(self.viewModel.totalCount)")
-            print("Table view rows: \(self.tableView.numberOfRows(inSection: 0))")
             self.tableView.reloadData()
             self.tableView.reloadRows(at: indexPathsToReload, with: .automatic)
         }
-     
-       // tableView.reloadData()
-        print(viewModel.totalCount)
     }
     
     func onFetchFailed(with reason: String) {
-//      indicatorView.stopAnimating()
-//
-//      let title = "Warning".localizedString
-//      let action = UIAlertAction(title: "OK".localizedString, style: .default)
-//      displayAlert(with: title , message: reason, actions: [action])
+      let title = "Errore"
+      let action = UIAlertAction(title: "OK", style: .default)
+      displayAlert(with: title , message: reason, actions: [action])
     }
 }
 
@@ -120,6 +176,21 @@ extension ViewController: UITableViewDataSourcePrefetching {
     
 }
 
+extension ViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        deselectAllButtons()
+        if searchText.isEmpty {
+            viewModel.cancelSearch()
+        } else {
+            viewModel.filterBeers(by: searchText)
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+}
+
 extension ViewController: BeerViewCellProtocol{
     func showBeerDetailSheet(beer: Beer) {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -134,7 +205,12 @@ extension ViewController: BeerViewCellProtocol{
 
 private extension ViewController {
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
-       return indexPath.row >= viewModel.currentCount - 5
+        if !viewModel.isInSearchMode {
+            return indexPath.row >= viewModel.currentCount - 5
+        } else {
+            viewModel.fetchBeers()
+            return false
+        }
      }
 
      func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {

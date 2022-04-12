@@ -26,12 +26,16 @@ class BeerTableViewCell: UITableViewCell {
             beerTaglineLabel.text = beer.tagline
             beerDescriptionLabel.text = beer.description
             self.beer = beer
+        } else {
+            beerNameLabel.text = ""
+            beerTaglineLabel.text = ""
+            beerDescriptionLabel.text = ""
+            beerImageView.image = nil
         }
     }
     
     override func prepareForReuse() {
       super.prepareForReuse()
-      
       configure(with: .none)
     }
     @IBAction func moreInfoButtonPressed(_ sender: Any) {
