@@ -30,6 +30,7 @@
 		815E46272800863800856A50 /* MashTemp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E461F2800863800856A50 /* MashTemp.swift */; };
 		815E46282800863800856A50 /* Hope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E46202800863800856A50 /* Hope.swift */; };
 		815E462A280095E900856A50 /* BeerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E4629280095E900856A50 /* BeerTableViewCell.swift */; };
+		8183F4B328057183008B8A7A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8183F4B228057183008B8A7A /* HeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		815E461F2800863800856A50 /* MashTemp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MashTemp.swift; sourceTree = "<group>"; };
 		815E46202800863800856A50 /* Hope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hope.swift; sourceTree = "<group>"; };
 		815E4629280095E900856A50 /* BeerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerTableViewCell.swift; sourceTree = "<group>"; };
+		8183F4B228057183008B8A7A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +96,10 @@
 				814AF0B427FD971B006EAB28 /* Networking */,
 				814AF0A027FD9639006EAB28 /* AppDelegate.swift */,
 				814AF0A227FD9639006EAB28 /* SceneDelegate.swift */,
+				814AF0A627FD9639006EAB28 /* Main.storyboard */,
+				8183F4B228057183008B8A7A /* HeaderView.swift */,
 				814AF0A427FD9639006EAB28 /* ViewController.swift */,
 				815E4629280095E900856A50 /* BeerTableViewCell.swift */,
-				814AF0A627FD9639006EAB28 /* Main.storyboard */,
 				814AF0A927FD963A006EAB28 /* Assets.xcassets */,
 				814AF0AB27FD963A006EAB28 /* LaunchScreen.storyboard */,
 				814AF0AE27FD963A006EAB28 /* Info.plist */,
@@ -226,6 +229,7 @@
 				814AF0A127FD9639006EAB28 /* AppDelegate.swift in Sources */,
 				815E462A280095E900856A50 /* BeerTableViewCell.swift in Sources */,
 				814AF0A327FD9639006EAB28 /* SceneDelegate.swift in Sources */,
+				8183F4B328057183008B8A7A /* HeaderView.swift in Sources */,
 				815E46262800863800856A50 /* BeerMethod.swift in Sources */,
 				815E46242800863800856A50 /* BeerIngredients.swift in Sources */,
 				814AF0D127FDA557006EAB28 /* URLRequest.swift in Sources */,

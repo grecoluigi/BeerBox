@@ -19,9 +19,55 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="chl-Dk-9In">
                                 <rect key="frame" x="0.0" y="139" width="414" height="757"/>
                                 <color key="backgroundColor" name="BackgroundColor"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="nhC-fJ-0Ut" userLabel="Header View" customClass="HeaderView" customModule="BeerBox" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="67"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekend Offers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bV-lO-mHs">
+                                            <rect key="frame" x="30" y="15" width="131" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free shipping on orders over 60€" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRk-5i-OYd">
+                                            <rect key="frame" x="30" y="38.5" width="214.5" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="offer" translatesAutoresizingMaskIntoConstraints="NO" id="IEd-U2-ioc">
+                                            <rect key="frame" x="348" y="10" width="46" height="47"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" name="BackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="IEd-U2-ioc" secondAttribute="trailing" constant="20" id="HmW-YH-tl8"/>
+                                        <constraint firstItem="IEd-U2-ioc" firstAttribute="centerY" secondItem="nhC-fJ-0Ut" secondAttribute="centerY" id="as1-dU-GXV"/>
+                                        <constraint firstItem="7bV-lO-mHs" firstAttribute="top" secondItem="nhC-fJ-0Ut" secondAttribute="top" constant="15" id="bYf-B8-thO"/>
+                                        <constraint firstItem="IEd-U2-ioc" firstAttribute="top" secondItem="nhC-fJ-0Ut" secondAttribute="top" constant="10" id="gho-A1-ahQ"/>
+                                        <constraint firstAttribute="bottom" secondItem="IEd-U2-ioc" secondAttribute="bottom" constant="10" id="glm-Qx-TiS"/>
+                                        <constraint firstItem="qRk-5i-OYd" firstAttribute="leading" secondItem="7bV-lO-mHs" secondAttribute="leading" id="quK-Pw-8sM"/>
+                                        <constraint firstItem="7bV-lO-mHs" firstAttribute="leading" secondItem="nhC-fJ-0Ut" secondAttribute="leading" constant="30" id="rBC-2P-aXz"/>
+                                        <constraint firstItem="qRk-5i-OYd" firstAttribute="top" secondItem="7bV-lO-mHs" secondAttribute="bottom" constant="3" id="sy4-8Z-v7f"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="rectBgColor">
+                                            <color key="value" name="BeerAccent"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="rectWidth">
+                                            <real key="value" value="400"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="rectHeight">
+                                            <real key="value" value="60"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="rectBorderColor">
+                                            <color key="value" name="BeerAccent"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BeerCell" rowHeight="160" id="YEm-6j-lBS" customClass="BeerTableViewCell" customModule="BeerBox" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="160"/>
+                                        <rect key="frame" x="0.0" y="111.5" width="414" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YEm-6j-lBS" id="Kro-4G-B3p">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
@@ -91,7 +137,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="yAG-O9-kiH">
+                            <searchBar contentMode="redraw" barStyle="black" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="yAG-O9-kiH">
                                 <rect key="frame" x="0.0" y="88" width="414" height="51"/>
                                 <color key="barTintColor" name="BackgroundColor"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -138,6 +184,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="offer" width="46.400001525878906" height="41.279998779296875"/>
         <namedColor name="BackgroundColor">
             <color red="0.054901960784313725" green="0.094117647058823528" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
