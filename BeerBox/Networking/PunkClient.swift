@@ -21,7 +21,6 @@ final class PunkClient {
     func fetchBeers(with request: BeerRequest, page: Int, completion: @escaping (Result<Beers, DataResponseError>) -> Void) {
         let urlRequest = URLRequest(url: baseURL.appendingPathComponent(request.path))
         let parameters = ["page": "\(page)"]
-        //.merging(request.parameters, uniquingKeysWith: +)
         let encodedURLRequest = urlRequest.encode(with: parameters)
 
         session.dataTask(with: encodedURLRequest, completionHandler: { data, response, error in

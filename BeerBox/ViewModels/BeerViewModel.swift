@@ -99,9 +99,7 @@ final class BeerViewModel {
                     if response.isEmpty {
                         self.reachedEndOfBeers = true
                         print("No more beers to load!")
-                        // I reached the end, so I can set the total count
                     } else {
-                        // there's still beers to load
                         self.currentPage += 1
                         self.isFetchInProgress = false
                         self.beers.append(contentsOf: response)
@@ -114,13 +112,6 @@ final class BeerViewModel {
                         }
                         
                     }
-                    //self.beers.append(response)
-//                    if response.page > 1 {
-//                      let indexPathToReload = self.calculateIndexPathsToReload(from: response.moderators)
-//                      self.delegate?.onFetchCompleted(with: indexPathToReload)
-//                    } else {
-//                      self.delegate?.onFetchCompleted(with: .none)
-//                    }
                 }
             }
         }
@@ -136,6 +127,5 @@ final class BeerViewModel {
             let endIndex = startIndex + newBeers.count
             return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0)}
         }
-     
     }
 }

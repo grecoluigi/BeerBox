@@ -19,7 +19,6 @@ class BeerDetailViewController: UIViewController {
     @IBOutlet weak var beerDescriptionLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
         bottomSheetArea = bottomSheet.bounds
         beerTitleLabel.text = beer.name
         beerTaglineLabel.text = beer.tagline
@@ -29,8 +28,6 @@ class BeerDetailViewController: UIViewController {
                 self.beerImageView.image = image
             }
         }
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,14 +35,9 @@ class BeerDetailViewController: UIViewController {
         animateBackgroundView(isAppearing: true)
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        animateBackgroundView(isAppearing: false)
-//        super.viewWillDisappear(true)
-//
-//    }
     
     func animateBackgroundView(isAppearing : Bool){
-        UIView.transition(with: backgroundView, duration: 0.4,
+        UIView.transition(with: backgroundView, duration: 0.2,
                           options: .transitionCrossDissolve,
                           animations: {
             if isAppearing{
@@ -61,23 +53,10 @@ class BeerDetailViewController: UIViewController {
         }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
         let p = sender.location(in: self.view)
-        if bottomSheet.frame.contains(p) {
-            // inside
-            print("I'm inside \(p)")
-        } else {
-            // outside
+        // If the user is tapping outside the bottom frame then dismiss the controller
+        if !bottomSheet.frame.contains(p) {
             animateBackgroundView(isAppearing: false)
         }
     }

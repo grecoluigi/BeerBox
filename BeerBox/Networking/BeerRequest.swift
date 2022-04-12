@@ -17,18 +17,4 @@ struct BeerRequest {
     init(parameters: Parameters) {
         self.parameters = parameters
     }
-//    private init(parameters: Parameters) {
-//        self.parameters = parameters
-//    }
-    
- 
-
 }
-
-// forse non mi serve?
-//extension BeerRequest {
-//    static func from(site: String) -> BeerRequest {
-//        let defaultParameters = [String: String]()
-//        let parameters = ["site"
-//    }
-//}
