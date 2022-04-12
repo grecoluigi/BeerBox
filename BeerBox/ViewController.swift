@@ -14,15 +14,33 @@ class ViewController: UIViewController {
     private var imageLoader = ImageLoader()
     override func viewDidLoad() {
         super.viewDidLoad()
+        styleNavBarTitle()
         tableView.dataSource = self
         tableView.prefetchDataSource = self
-
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 160
         let request = BeerRequest(parameters: ["page": "1"])
         viewModel = BeerViewModel(request: request, delegate: self)
         viewModel.fetchBeers()
         
     }
+    
+    func styleNavBarTitle() {
+        let navLabel = UILabel()
+        let navTitle = NSMutableAttributedString(string: "Beer", attributes:[
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight.light)])
+
+        navTitle.append(NSMutableAttributedString(string: "Box", attributes:[
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17.0),
+            NSAttributedString.Key.foregroundColor: UIColor.white]))
+
+        navLabel.attributedText = navTitle
+        self.navigationItem.titleView = navLabel
+    }
 }
+
+
 
 extension ViewController: BeerViewModelDelegate {
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
