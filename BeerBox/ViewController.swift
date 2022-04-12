@@ -12,6 +12,13 @@ class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     private var viewModel: BeerViewModel!
     private var imageLoader = ImageLoader()
+    private lazy var beerDetailVC: BeerDetailViewController = {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        var viewController = storyboard.instantiateViewController(withIdentifier: "BeerDetailViewController") as! BeerDetailViewController
+        navigationController?.addChild(viewController)
+            return viewController
+
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         styleNavBarTitle()
@@ -22,7 +29,6 @@ class ViewController: UIViewController {
         let request = BeerRequest(parameters: ["page": "1"])
         viewModel = BeerViewModel(request: request, delegate: self)
         viewModel.fetchBeers()
-        
     }
     
     func styleNavBarTitle() {
@@ -92,6 +98,7 @@ extension ViewController: UITableViewDataSource {
                 }
               cell.configure(with: viewModel.beer(at: indexPath.row))
             }
+        cell.delegate = self
         return cell
     }
 
@@ -113,6 +120,18 @@ extension ViewController: UITableViewDataSourcePrefetching {
     
 }
 
+extension ViewController: BeerViewCellProtocol{
+    func showBeerDetailSheet(beer: Beer) {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let beerDetailVC = storyboard.instantiateViewController(withIdentifier: "BeerDetailViewController") as! BeerDetailViewController
+        beerDetailVC.beer = beer
+        beerDetailVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.present(beerDetailVC, animated: true)
+    }
+    
+    
+}
+
 private extension ViewController {
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
        return indexPath.row >= viewModel.currentCount - 5
@@ -124,3 +143,4 @@ private extension ViewController {
        return Array(indexPathsIntersection)
      }
 }
+

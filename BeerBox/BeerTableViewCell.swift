@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol BeerViewCellProtocol {
+    func showBeerDetailSheet(beer: Beer)
+}
+
 class BeerTableViewCell: UITableViewCell {
     
     
@@ -14,12 +18,14 @@ class BeerTableViewCell: UITableViewCell {
     @IBOutlet weak var beerTaglineLabel: UILabel!
     @IBOutlet weak var beerDescriptionLabel: UILabel!
     @IBOutlet weak var beerImageView: UIImageView!
-    
+    var beer: Beer!
+    var delegate: BeerViewCellProtocol!
     func configure(with beer: Beer?) {
         if let beer = beer {
             beerNameLabel.text = beer.name
             beerTaglineLabel.text = beer.tagline
             beerDescriptionLabel.text = beer.description
+            self.beer = beer
         }
     }
     
@@ -27,5 +33,8 @@ class BeerTableViewCell: UITableViewCell {
       super.prepareForReuse()
       
       configure(with: .none)
+    }
+    @IBAction func moreInfoButtonPressed(_ sender: Any) {
+        self.delegate.showBeerDetailSheet(beer: beer)
     }
 }
