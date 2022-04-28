@@ -1,6 +1,6 @@
 #  BeerBox
 
-A sample client for PunkAPI https://punkapi.com, written in Swift and UIKit
+A sample client for [PunkAPI](https://punkapi.com), written in Swift and UIKit
 
   
 
@@ -17,6 +17,6 @@ Features:
 
   Credits:
 
-Infinite loading logic is a modification of the code found here: https://www.raywenderlich.com/5786-uitableview-infinite-scrolling-tutorial
+Infinite loading logic is a modification of the code found [here](https://www.raywenderlich.com/5786-uitableview-infinite-scrolling-tutorial)
 
 Present icon: <a target="_blank" href="https://icons8.com/icon/jGJ3dTsFA7IV/gift-box">Gift Box</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
