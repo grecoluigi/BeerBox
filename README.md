@@ -4,6 +4,10 @@ A sample client for PunkAPI https://punkapi.com, written in Swift and UIKit
 
   
 
+https://user-images.githubusercontent.com/19614441/165718745-a71b5b1d-b77b-4e3c-89d5-e5970c2b0cbd.mp4
+
+
+
 Features:
 - Infinite loading on scroll
 - Search
